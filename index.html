@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+
+
+<html lang="en">
+    <style>
+    
+
+    </style>
+
+
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Palermo Upgraded
+    </title>
+    <link rel="stylesheet" href="style/style.css">
+</head>
+<body onload="eski()">
+
+
+    <center>
+        
+        <table>
+            <th>Oyuncular</th>
+            <th>roller</th>
+            <tr>
+                <td>
+                    <textarea placeholder="Oyuncular" id="oyuncular" rows="20">
+Hansel
+Kırmızı Başlıklı Kız 
+Sindirella</textarea>    
+                    </td>
+                    
+                <td>
+                    <textarea placeholder="Roller" id="roller" rows="20">
+Gözcü
+Şerif
+Muhtar
+Medyum
+Diriltici
+Transporter
+Eskort
+Doktor
+Bodyguard
+Veteran
+Vigilante
+Godfather
+Mafioso
+Consort
+Janitor
+Jester
+Kundakçı
+Survivor
+Amnesiac
+Seri Katil</textarea>
+                </td>
+            </tr>
+
+        </table>
+
+        
+
+        <button type="button" id="onaybut" onclick="salla()">Çalkala</button>
+        <br>
+        <a href="https://tr.wikipedia.org/wiki/Town_of_Salem#K%C3%B6yl%C3%BCler_(Town)"><button>Oynanış</button></a>
+    </center>
+
+   
+</body>
+</html>
+
+
+<script>
+    var casus = '';
+    var mekan = '';
+
+    function salla(){
+
+        document.getElementById("oyuncular").value = ele("oyuncular");
+        document.getElementById("roller").value = ele("roller");
+        
+        var geciciText = '';
+
+        geciciText = document.getElementById("oyuncular").value
+        var yeniText = geciciText.replace(/^\s*[\r\n]/gm, '');
+        document.getElementById("oyuncular").value = yeniText;
+
+        geciciText = document.getElementById("roller").value
+        var yeniText = geciciText.replace(/^\s*[\r\n]/gm, '');
+        document.getElementById("roller").value = yeniText;
+        
+     
+
+        document.getElementById("onaybut").disabled= true;
+        const oyuncular = document.getElementById("oyuncular").value.split("\n");
+        var roller = document.getElementById("roller").value.split("\n");
+        var verilenRoller = [];
+
+        for (kisi of oyuncular){
+            var sec = Math.floor(Math.random() * roller.length);
+            var b = document.createElement("button");
+            b.textContent = kisi;
+            rol = roller[sec];
+            b.name= rol;
+            verilenRoller.push(rol);
+            console.log(rol);
+                b.onclick = function(){
+                    alert(this.name);
+                    this.disabled=true;
+                };
+            roller.splice(sec, 1);
+            document.body.appendChild(b);
+        }
+
+
+        localStorage.setItem("palermoUpgradedOyuncular", document.getElementById("oyuncular").value);
+        localStorage.setItem("palermoUpgradedRoller", document.getElementById("roller").value);
+         
+       
+    
+}
+
+function eski(){
+    if(localStorage.getItem("palermoUpgradedOyuncular").length > 1){
+        if(localStorage.getItem("palermoUpgradedRoller").length > 1){
+    document.getElementById("oyuncular").value = localStorage.getItem("palermoUpgradedOyuncular");
+    document.getElementById("roller").value = localStorage.getItem("palermoUpgradedRoller");
+    }
+}
+
+        
+}
+
+
+function ele(nerden){
+    var ham = document.getElementById(nerden).value.split("\n");
+    var yeniText = '';
+    for (line of ham){
+        if (line.length > 0){
+            yeniText = yeniText.concat("\n", line);
+        }
+    }
+
+    return yeniText;
+}
+
+   
+</script>
+
+
+
